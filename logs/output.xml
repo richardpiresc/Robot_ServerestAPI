@@ -1,0 +1,1564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.11.3 on win32)" generated="20230416 21:04:14.918" rpa="false" schemaversion="3">
+<suite id="s1" name="Post Serverest" source="C:\Users\richa\CWI\RobotAPI\ReqResAPI\tests\post_serverest.robot">
+<test id="s1-t1" name="Criar usuario" line="6">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>serverest</arg>
+<arg>url=https://serverest.dev/#/</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230416 21:04:15.121" level="INFO">Creating Session using : alias=serverest, url=https://serverest.dev/#/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230416 21:04:15.121" endtime="20230416 21:04:15.121"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${header}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230416 21:04:15.121" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20230416 21:04:15.121" endtime="20230416 21:04:15.121"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>serverest</arg>
+<arg>url=/usuarios</arg>
+<arg>expected_status=201</arg>
+<arg>headers=${header}</arg>
+<arg>data={"nome": "Alberto Roberto", "email": "alberto@test1.com.br", "password": "teste", "administrador": "true"}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20230416 21:04:15.465" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '106'} 
+ body={"nome": "Alberto Roberto", "email": "alberto@test1.com.br", "password": "teste", "administrador": "true"} 
+ </msg>
+<msg timestamp="20230416 21:04:15.465" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'x-moesif-transaction-id': 'ac0add00-f46f-49a6-bed4-06f0dd366393', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '49f6f410005a8017dec54ee6697bca3f;o=1', 'Date': 'Mon, 17 Apr 2023 00:04:03 GMT', 'Server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "udfs6ht39Y0G1KPT"
+} 
+ </msg>
+<msg timestamp="20230416 21:04:15.465" level="INFO">C:\Users\richa\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230416 21:04:15.465" level="INFO">${RESPONSE} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20230416 21:04:15.121" endtime="20230416 21:04:15.465"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${msg}</var>
+<arg>${RESPONSE.json()['message']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:15.468" level="INFO">${msg} = Cadastro realizado com sucesso</msg>
+<status status="PASS" starttime="20230416 21:04:15.467" endtime="20230416 21:04:15.468"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${msg}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230416 21:04:15.469" endtime="20230416 21:04:15.470"/>
+</kw>
+<status status="PASS" starttime="20230416 21:04:15.121" endtime="20230416 21:04:15.470"/>
+</test>
+<test id="s1-t2" name="Consultar usuario criado, alterar os dados e deletar o usuario" line="17">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>serverest</arg>
+<arg>url=https://serverest.dev/#/</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20230416 21:04:15.476" level="INFO">Creating Session using : alias=serverest, url=https://serverest.dev/#/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20230416 21:04:15.476" endtime="20230416 21:04:15.476"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>serverest</arg>
+<arg>url=/usuarios</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20230416 21:04:16.114" level="INFO">GET Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20230416 21:04:16.114" level="INFO">GET Response : url=https://serverest.dev/usuarios 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'x-moesif-transaction-id': '6283f11d-3761-4a5a-86ea-544819736c9e', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': 'd2424e590341b98924a0063536e08881', 'Date': 'Mon, 17 Apr 2023 00:04:04 GMT', 'Server': 'Google Frontend', 'Content-Length': '7366'} 
+ body={
+    "quantidade": 32,
+    "usuarios": [
+        {
+            "nome": "João sem pé de alface",
+            "email": "Aimee_Macejkovic@hotmail.com",
+            "password": "7Z_ukDoOI7ncKhd",
+            "administrador": "true",
+            "_id": "0jsw7VBo2ZNwjquM"
+        },
+        {
+            "nome": "Fulano da Silva",
+            "email": "fulano@qa.com",
+            "password": "teste",
+            "administrador": "true",
+            "_id": "0uxuPY0cbmQhpEz1"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "joao@semfeijao.com",
+            "password": "feijao",
+            "administrador": "true",
+            "_id": "1P8TooJcRvAijafG"
+        },
+        {
+            "nome": "João sem pé de Feijão4",
+            "email": "Dorothy.Runolfsson32@hotmail.com",
+            "password": "5vailMlShLixWR1",
+            "administrador": "true",
+            "_id": "5WtosTFMFuiWI7VT"
+        },
+        {
+            "nome": "João sem pé de alface",
+            "email": "Hugh24@hotmail.com",
+            "password": "vkLgPNetglqWx49",
+            "administrador": "true",
+            "_id": "5bpVUufSIXDgx73U"
+        },
+        {
+            "nome": "{{generatedName}}",
+            "email": "Magdalena7@example.net",
+            "password": "teste",
+            "administrador": "true",
+            "_id": "5xJo68guJO90S3an"
+        },
+        {
+            "nome": "João sem pé de alface",
+            "email": "Henry8@gmail.com",
+            "password": "GT995XonswQEa1e",
+            "administrador": "true",
+            "_id": "6zENQ8Nbg402qOy8"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "Paula.Pfeffer85@yahoo.com",
+            "password": "feijao",
+            "administrador": "false",
+            "_id": "8jQekMrpRucVlLbT"
+        },
+        {
+            "nome": "Fulano da Silva",
+            "email": "beltrano@qa.com.br",
+            "password": "teste",
+            "administrador": "true",
+            "_id": "9v1waltX91x2dtjn"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "Maynard_Moore@hotmail.com",
+            "password": "feijao",
+            "administrador": "false",
+            "_id": "Bmk0yMf0PScoT4xr"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "Tyra.Stehr30@gmail.com",
+            "password": "liuVHX80lgmidU8",
+            "administrador": "false",
+            "_id": "BxKXzlWht6h1JOy6"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "Burley34@hotmail.com",
+            "password": "NMcYpBHvDiQ8Is6",
+            "administrador": "false",
+            "_id": "CKZT9mJZDN8dsyjb"
+        },
+        {
+            "nome": "João sem pé de Feijão4",
+            "email": "Ida.Konopelski54@gmail.com",
+            "password": "wM7ITvo5rQ_KtSM",
+            "administrador": "true",
+            "_id": "CuZTTW96Zj3WUsnG"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "Zion85@gmail.com",
+            "password": "feijao",
+            "administrador": "false",
+            "_id": "DYlDxLjCeeWwKW12"
+        },
+        {
+            "nome": "João sem pé de Feijão 7123",
+            "email": "joao77@semfeijao.com",
+            "password": "feijao",
+            "administrador": "true",
+            "_id": "ERGn1kOwYienfDCZ"
+        },
+        {
+            "nome": "{{generatedName}}",
+            "email": "Althea.Denesik@example.org",
+            "password": "teste",
+            "administrador": "true",
+            "_id": "IBasJQpBhmwbUh30"
+        },
+        {
+            "nome": "João sem pé de Feijão4",
+            "email": "Genevieve_Krajcik@yahoo.com",
+            "password": "MczwTekY81yjXb2",
+            "administrador": "true",
+            "_id": "M5REByEVp7N18BgJ"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "Darrion_Dicki44@yahoo.com",
+            "password": "feijao",
+            "administrador": "false",
+            "_id": "PA6drBmZ761eE3eD"
+        },
+        {
+            "nome": "Jose da silva pereira",
+            "email": "JoseSilva@qa.com.br",
+            "password": "teste",
+            "administrador": "true",
+            "_id": "RJd3accWWE0EUUnx"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "Nicolas_Farrell@gmail.com",
+            "password": "_yLFIw57NJyiwzD",
+            "administrador": "false",
+            "_id": "bTV93WEQEedhGkbR"
+        },
+        {
+            "nome": "João sem pé de Feijão4",
+            "email": "Eileen_Schamberger12@hotmail.com",
+            "password": "D31fd9ML3UStm_K",
+            "administrador": "true",
+            "_id": "bgNxZNctTR9pbfZN"
+        },
+        {
+            "nome": "{{generatedName}}",
+            "email": "Nigel_Carter99@example.com",
+            "password": "teste",
+            "administrador": "true",
+            "_id": "fN641V9ZWHFoMg49"
+        },
+        {
+            "nome": "João sem pé de alface",
+            "email": "Harvey_Stanton@yahoo.com",
+            "password": "DUU_4eLBlhWpxW6",
+            "administrador": "true",
+            "_id": "gkEfcvILDddJAvxF"
+        },
+        {
+            "nome": "João sem pé de alface",
+            "email": "Pasquale.Kling89@hotmail.com",
+            "password": "lGao43QdCD8ixDN",
+            "administrador": "true",
+            "_id": "h49o4So3ql8Ntz8C"
+        },
+        {
+            "nome": "João sem pé de Feijão2",
+            "email": "joao2@semfeijao.com",
+            "password": "feijao",
+            "administrador": "true",
+            "_id": "lEWE3E7OMfwiN9YQ"
+        },
+        {
+            "nome": "João sem pé de Feijão3",
+            "email": "joaos02@feijao.com",
+            "password": "feijao",
+            "administrador": "false",
+            "_id": "qjlIPQOY4SkluD4o"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "Rahsaan.Stroman69@gmail.com",
+            "password": "qU_mEWITP8Nr3PP",
+            "administrador": "false",
+            "_id": "s29acG61sNbJLeAE"
+        },
+        {
+            "nome": "João sem pé de Feijão",
+            "email": "Gianni_Friesen@yahoo.com",
+            "password": "6FjxeiEkI8Qwpda",
+            "administrador": "false",
+            "_id": "tN5u4MDjEAcPpcBs"
+        },
+        {
+            "nome": "João sem pé de Feijão4",
+            "email": "Newell_Koss15@hotmail.com",
+            "password": "w35UZ5qQEbAfaNK",
+            "administrador": "true",
+            "_id": "tT3puMSJkRqYpEMH"
+        },
+        {
+            "nome": "João sem pé de Feijão4",
+            "email": "Baron.Weissnat@yahoo.com",
+            "password": "3Z79aW7jhPuYt_0",
+            "administrador": "true",
+            "_id": "tXkZ1AYhe562wk3Q"
+        },
+        {
+            "nome": "Alberto Roberto",
+            "email": "alberto@test1.com.br",
+            "password": "teste",
+            "administrador": "true",
+            "_id": "udfs6ht39Y0G1KPT"
+        },
+        {
+            "nome": "Roberto Silva",
+            "email": "Robertos@test1.com.br",
+            "password": "teste",
+            "administrador": "false",
+            "_id": "vk6sFHZRSUIdHIB3"
+        }
+    ]
+} 
+ </msg>
+<msg timestamp="20230416 21:04:16.115" level="INFO">C:\Users\richa\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230416 21:04:16.116" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230416 21:04:15.477" endtime="20230416 21:04:16.116"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${json_data}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.119" level="INFO">${json_data} = {'quantidade': 32, 'usuarios': [{'nome': 'João sem pé de alface', 'email': 'Aimee_Macejkovic@hotmail.com', 'password': '7Z_ukDoOI7ncKhd', 'administrador': 'true', '_id': '0jsw7VBo2ZNwjquM'}, {'nome': ...</msg>
+<status status="PASS" starttime="20230416 21:04:16.118" endtime="20230416 21:04:16.119"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.121" level="INFO">${id} = </msg>
+<status status="PASS" starttime="20230416 21:04:16.120" endtime="20230416 21:04:16.121"/>
+</kw>
+<for flavor="IN">
+<var>${usuario}</var>
+<value>@{json_data['usuarios']}</value>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de alface', 'email': 'Aimee_Macejkovic@hotmail.com', 'password': '7Z_ukDoOI7ncKhd', 'administrador': 'true', '_id': '0jsw7VBo2ZNwjquM'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.125" level="INFO">${nome} = João sem pé de alface</msg>
+<status status="PASS" starttime="20230416 21:04:16.123" endtime="20230416 21:04:16.125"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.127" level="INFO">${_id} = 0jsw7VBo2ZNwjquM</msg>
+<status status="PASS" starttime="20230416 21:04:16.125" endtime="20230416 21:04:16.127"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.127" endtime="20230416 21:04:16.127"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.127" endtime="20230416 21:04:16.127"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.127" endtime="20230416 21:04:16.127"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.127" endtime="20230416 21:04:16.127"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.123" endtime="20230416 21:04:16.127"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'Fulano da Silva', 'email': 'fulano@qa.com', 'password': 'teste', 'administrador': 'true', '_id': '0uxuPY0cbmQhpEz1'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.128" level="INFO">${nome} = Fulano da Silva</msg>
+<status status="PASS" starttime="20230416 21:04:16.127" endtime="20230416 21:04:16.129"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.129" level="INFO">${_id} = 0uxuPY0cbmQhpEz1</msg>
+<status status="PASS" starttime="20230416 21:04:16.129" endtime="20230416 21:04:16.129"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.130" endtime="20230416 21:04:16.130"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.130" endtime="20230416 21:04:16.130"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.129" endtime="20230416 21:04:16.130"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.129" endtime="20230416 21:04:16.130"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.127" endtime="20230416 21:04:16.130"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'joao@semfeijao.com', 'password': 'feijao', 'administrador': 'true', '_id': '1P8TooJcRvAijafG'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.131" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.130" endtime="20230416 21:04:16.131"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.132" level="INFO">${_id} = 1P8TooJcRvAijafG</msg>
+<status status="PASS" starttime="20230416 21:04:16.131" endtime="20230416 21:04:16.132"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.132" endtime="20230416 21:04:16.132"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.132" endtime="20230416 21:04:16.132"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.132" endtime="20230416 21:04:16.132"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.132" endtime="20230416 21:04:16.133"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.130" endtime="20230416 21:04:16.133"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão4', 'email': 'Dorothy.Runolfsson32@hotmail.com', 'password': '5vailMlShLixWR1', 'administrador': 'true', '_id': '5WtosTFMFuiWI7VT'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.133" level="INFO">${nome} = João sem pé de Feijão4</msg>
+<status status="PASS" starttime="20230416 21:04:16.133" endtime="20230416 21:04:16.134"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.134" level="INFO">${_id} = 5WtosTFMFuiWI7VT</msg>
+<status status="PASS" starttime="20230416 21:04:16.134" endtime="20230416 21:04:16.134"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.135" endtime="20230416 21:04:16.135"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.135" endtime="20230416 21:04:16.135"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.134" endtime="20230416 21:04:16.135"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.134" endtime="20230416 21:04:16.135"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.133" endtime="20230416 21:04:16.135"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de alface', 'email': 'Hugh24@hotmail.com', 'password': 'vkLgPNetglqWx49', 'administrador': 'true', '_id': '5bpVUufSIXDgx73U'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.136" level="INFO">${nome} = João sem pé de alface</msg>
+<status status="PASS" starttime="20230416 21:04:16.135" endtime="20230416 21:04:16.136"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.137" level="INFO">${_id} = 5bpVUufSIXDgx73U</msg>
+<status status="PASS" starttime="20230416 21:04:16.136" endtime="20230416 21:04:16.137"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.137" endtime="20230416 21:04:16.137"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.137" endtime="20230416 21:04:16.137"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.137" endtime="20230416 21:04:16.137"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.137" endtime="20230416 21:04:16.137"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.135" endtime="20230416 21:04:16.137"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': '{{generatedName}}', 'email': 'Magdalena7@example.net', 'password': 'teste', 'administrador': 'true', '_id': '5xJo68guJO90S3an'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.138" level="INFO">${nome} = {{generatedName}}</msg>
+<status status="PASS" starttime="20230416 21:04:16.137" endtime="20230416 21:04:16.138"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.139" level="INFO">${_id} = 5xJo68guJO90S3an</msg>
+<status status="PASS" starttime="20230416 21:04:16.138" endtime="20230416 21:04:16.139"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.140" endtime="20230416 21:04:16.140"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.140" endtime="20230416 21:04:16.140"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.139" endtime="20230416 21:04:16.140"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.139" endtime="20230416 21:04:16.141"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.137" endtime="20230416 21:04:16.141"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de alface', 'email': 'Henry8@gmail.com', 'password': 'GT995XonswQEa1e', 'administrador': 'true', '_id': '6zENQ8Nbg402qOy8'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.143" level="INFO">${nome} = João sem pé de alface</msg>
+<status status="PASS" starttime="20230416 21:04:16.141" endtime="20230416 21:04:16.143"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.144" level="INFO">${_id} = 6zENQ8Nbg402qOy8</msg>
+<status status="PASS" starttime="20230416 21:04:16.143" endtime="20230416 21:04:16.144"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.145" endtime="20230416 21:04:16.145"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.145" endtime="20230416 21:04:16.145"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.144" endtime="20230416 21:04:16.145"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.144" endtime="20230416 21:04:16.145"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.141" endtime="20230416 21:04:16.145"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'Paula.Pfeffer85@yahoo.com', 'password': 'feijao', 'administrador': 'false', '_id': '8jQekMrpRucVlLbT'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.146" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.145" endtime="20230416 21:04:16.146"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.147" level="INFO">${_id} = 8jQekMrpRucVlLbT</msg>
+<status status="PASS" starttime="20230416 21:04:16.146" endtime="20230416 21:04:16.147"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.147" endtime="20230416 21:04:16.147"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.147" endtime="20230416 21:04:16.147"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.147" endtime="20230416 21:04:16.147"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.147" endtime="20230416 21:04:16.147"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.145" endtime="20230416 21:04:16.147"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'Fulano da Silva', 'email': 'beltrano@qa.com.br', 'password': 'teste', 'administrador': 'true', '_id': '9v1waltX91x2dtjn'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.148" level="INFO">${nome} = Fulano da Silva</msg>
+<status status="PASS" starttime="20230416 21:04:16.147" endtime="20230416 21:04:16.148"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.148" level="INFO">${_id} = 9v1waltX91x2dtjn</msg>
+<status status="PASS" starttime="20230416 21:04:16.148" endtime="20230416 21:04:16.148"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.149" endtime="20230416 21:04:16.149"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.149" endtime="20230416 21:04:16.149"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.149" endtime="20230416 21:04:16.149"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.149" endtime="20230416 21:04:16.149"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.147" endtime="20230416 21:04:16.149"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'Maynard_Moore@hotmail.com', 'password': 'feijao', 'administrador': 'false', '_id': 'Bmk0yMf0PScoT4xr'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.150" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.149" endtime="20230416 21:04:16.150"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.150" level="INFO">${_id} = Bmk0yMf0PScoT4xr</msg>
+<status status="PASS" starttime="20230416 21:04:16.150" endtime="20230416 21:04:16.151"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.151" endtime="20230416 21:04:16.151"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.151" endtime="20230416 21:04:16.151"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.151" endtime="20230416 21:04:16.151"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.151" endtime="20230416 21:04:16.151"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.149" endtime="20230416 21:04:16.151"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'Tyra.Stehr30@gmail.com', 'password': 'liuVHX80lgmidU8', 'administrador': 'false', '_id': 'BxKXzlWht6h1JOy6'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.152" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.152" endtime="20230416 21:04:16.152"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.153" level="INFO">${_id} = BxKXzlWht6h1JOy6</msg>
+<status status="PASS" starttime="20230416 21:04:16.152" endtime="20230416 21:04:16.153"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.153" endtime="20230416 21:04:16.153"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.153" endtime="20230416 21:04:16.153"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.153" endtime="20230416 21:04:16.153"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.153" endtime="20230416 21:04:16.154"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.151" endtime="20230416 21:04:16.154"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'Burley34@hotmail.com', 'password': 'NMcYpBHvDiQ8Is6', 'administrador': 'false', '_id': 'CKZT9mJZDN8dsyjb'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.154" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.154" endtime="20230416 21:04:16.154"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.155" level="INFO">${_id} = CKZT9mJZDN8dsyjb</msg>
+<status status="PASS" starttime="20230416 21:04:16.154" endtime="20230416 21:04:16.155"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.156" endtime="20230416 21:04:16.156"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.156" endtime="20230416 21:04:16.156"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.155" endtime="20230416 21:04:16.156"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.155" endtime="20230416 21:04:16.156"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.154" endtime="20230416 21:04:16.156"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão4', 'email': 'Ida.Konopelski54@gmail.com', 'password': 'wM7ITvo5rQ_KtSM', 'administrador': 'true', '_id': 'CuZTTW96Zj3WUsnG'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.157" level="INFO">${nome} = João sem pé de Feijão4</msg>
+<status status="PASS" starttime="20230416 21:04:16.157" endtime="20230416 21:04:16.157"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.158" level="INFO">${_id} = CuZTTW96Zj3WUsnG</msg>
+<status status="PASS" starttime="20230416 21:04:16.158" endtime="20230416 21:04:16.158"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.158" endtime="20230416 21:04:16.158"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.159" endtime="20230416 21:04:16.159"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.158" endtime="20230416 21:04:16.159"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.158" endtime="20230416 21:04:16.159"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.156" endtime="20230416 21:04:16.159"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'Zion85@gmail.com', 'password': 'feijao', 'administrador': 'false', '_id': 'DYlDxLjCeeWwKW12'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.159" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.159" endtime="20230416 21:04:16.160"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.160" level="INFO">${_id} = DYlDxLjCeeWwKW12</msg>
+<status status="PASS" starttime="20230416 21:04:16.160" endtime="20230416 21:04:16.160"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.161" endtime="20230416 21:04:16.161"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.161" endtime="20230416 21:04:16.161"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.160" endtime="20230416 21:04:16.161"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.160" endtime="20230416 21:04:16.161"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.159" endtime="20230416 21:04:16.161"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão 7123', 'email': 'joao77@semfeijao.com', 'password': 'feijao', 'administrador': 'true', '_id': 'ERGn1kOwYienfDCZ'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.162" level="INFO">${nome} = João sem pé de Feijão 7123</msg>
+<status status="PASS" starttime="20230416 21:04:16.161" endtime="20230416 21:04:16.162"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.162" level="INFO">${_id} = ERGn1kOwYienfDCZ</msg>
+<status status="PASS" starttime="20230416 21:04:16.162" endtime="20230416 21:04:16.162"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.163" endtime="20230416 21:04:16.163"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.163" endtime="20230416 21:04:16.163"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.162" endtime="20230416 21:04:16.163"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.162" endtime="20230416 21:04:16.163"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.161" endtime="20230416 21:04:16.163"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': '{{generatedName}}', 'email': 'Althea.Denesik@example.org', 'password': 'teste', 'administrador': 'true', '_id': 'IBasJQpBhmwbUh30'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.163" level="INFO">${nome} = {{generatedName}}</msg>
+<status status="PASS" starttime="20230416 21:04:16.163" endtime="20230416 21:04:16.164"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.164" level="INFO">${_id} = IBasJQpBhmwbUh30</msg>
+<status status="PASS" starttime="20230416 21:04:16.164" endtime="20230416 21:04:16.164"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.164" endtime="20230416 21:04:16.164"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.164" endtime="20230416 21:04:16.165"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.164" endtime="20230416 21:04:16.165"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.164" endtime="20230416 21:04:16.165"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.163" endtime="20230416 21:04:16.165"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão4', 'email': 'Genevieve_Krajcik@yahoo.com', 'password': 'MczwTekY81yjXb2', 'administrador': 'true', '_id': 'M5REByEVp7N18BgJ'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.165" level="INFO">${nome} = João sem pé de Feijão4</msg>
+<status status="PASS" starttime="20230416 21:04:16.165" endtime="20230416 21:04:16.165"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.166" level="INFO">${_id} = M5REByEVp7N18BgJ</msg>
+<status status="PASS" starttime="20230416 21:04:16.165" endtime="20230416 21:04:16.166"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.166" endtime="20230416 21:04:16.166"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.166" endtime="20230416 21:04:16.167"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.166" endtime="20230416 21:04:16.167"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.166" endtime="20230416 21:04:16.167"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.165" endtime="20230416 21:04:16.167"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'Darrion_Dicki44@yahoo.com', 'password': 'feijao', 'administrador': 'false', '_id': 'PA6drBmZ761eE3eD'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.167" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.167" endtime="20230416 21:04:16.167"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.168" level="INFO">${_id} = PA6drBmZ761eE3eD</msg>
+<status status="PASS" starttime="20230416 21:04:16.167" endtime="20230416 21:04:16.168"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.168" endtime="20230416 21:04:16.168"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.168" endtime="20230416 21:04:16.168"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.168" endtime="20230416 21:04:16.168"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.168" endtime="20230416 21:04:16.168"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.167" endtime="20230416 21:04:16.168"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'Jose da silva pereira', 'email': 'JoseSilva@qa.com.br', 'password': 'teste', 'administrador': 'true', '_id': 'RJd3accWWE0EUUnx'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.169" level="INFO">${nome} = Jose da silva pereira</msg>
+<status status="PASS" starttime="20230416 21:04:16.169" endtime="20230416 21:04:16.169"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.170" level="INFO">${_id} = RJd3accWWE0EUUnx</msg>
+<status status="PASS" starttime="20230416 21:04:16.169" endtime="20230416 21:04:16.170"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.170" endtime="20230416 21:04:16.170"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.170" endtime="20230416 21:04:16.170"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.170" endtime="20230416 21:04:16.170"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.170" endtime="20230416 21:04:16.170"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.169" endtime="20230416 21:04:16.170"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'Nicolas_Farrell@gmail.com', 'password': '_yLFIw57NJyiwzD', 'administrador': 'false', '_id': 'bTV93WEQEedhGkbR'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.171" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.170" endtime="20230416 21:04:16.171"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.172" level="INFO">${_id} = bTV93WEQEedhGkbR</msg>
+<status status="PASS" starttime="20230416 21:04:16.171" endtime="20230416 21:04:16.172"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.173" endtime="20230416 21:04:16.173"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.173" endtime="20230416 21:04:16.173"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.172" endtime="20230416 21:04:16.173"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.172" endtime="20230416 21:04:16.173"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.170" endtime="20230416 21:04:16.173"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão4', 'email': 'Eileen_Schamberger12@hotmail.com', 'password': 'D31fd9ML3UStm_K', 'administrador': 'true', '_id': 'bgNxZNctTR9pbfZN'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.174" level="INFO">${nome} = João sem pé de Feijão4</msg>
+<status status="PASS" starttime="20230416 21:04:16.174" endtime="20230416 21:04:16.174"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.175" level="INFO">${_id} = bgNxZNctTR9pbfZN</msg>
+<status status="PASS" starttime="20230416 21:04:16.174" endtime="20230416 21:04:16.175"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.175" endtime="20230416 21:04:16.175"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.175" endtime="20230416 21:04:16.175"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.175" endtime="20230416 21:04:16.175"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.175" endtime="20230416 21:04:16.175"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.173" endtime="20230416 21:04:16.175"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': '{{generatedName}}', 'email': 'Nigel_Carter99@example.com', 'password': 'teste', 'administrador': 'true', '_id': 'fN641V9ZWHFoMg49'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.176" level="INFO">${nome} = {{generatedName}}</msg>
+<status status="PASS" starttime="20230416 21:04:16.175" endtime="20230416 21:04:16.176"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.177" level="INFO">${_id} = fN641V9ZWHFoMg49</msg>
+<status status="PASS" starttime="20230416 21:04:16.176" endtime="20230416 21:04:16.177"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.177" endtime="20230416 21:04:16.177"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.177" endtime="20230416 21:04:16.177"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.177" endtime="20230416 21:04:16.177"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.177" endtime="20230416 21:04:16.177"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.175" endtime="20230416 21:04:16.177"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de alface', 'email': 'Harvey_Stanton@yahoo.com', 'password': 'DUU_4eLBlhWpxW6', 'administrador': 'true', '_id': 'gkEfcvILDddJAvxF'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.178" level="INFO">${nome} = João sem pé de alface</msg>
+<status status="PASS" starttime="20230416 21:04:16.177" endtime="20230416 21:04:16.178"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.179" level="INFO">${_id} = gkEfcvILDddJAvxF</msg>
+<status status="PASS" starttime="20230416 21:04:16.178" endtime="20230416 21:04:16.179"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.179" endtime="20230416 21:04:16.179"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.179" endtime="20230416 21:04:16.179"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.179" endtime="20230416 21:04:16.179"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.179" endtime="20230416 21:04:16.179"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.177" endtime="20230416 21:04:16.179"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de alface', 'email': 'Pasquale.Kling89@hotmail.com', 'password': 'lGao43QdCD8ixDN', 'administrador': 'true', '_id': 'h49o4So3ql8Ntz8C'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.180" level="INFO">${nome} = João sem pé de alface</msg>
+<status status="PASS" starttime="20230416 21:04:16.179" endtime="20230416 21:04:16.180"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.180" level="INFO">${_id} = h49o4So3ql8Ntz8C</msg>
+<status status="PASS" starttime="20230416 21:04:16.180" endtime="20230416 21:04:16.180"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.181" endtime="20230416 21:04:16.181"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.181" endtime="20230416 21:04:16.181"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.180" endtime="20230416 21:04:16.181"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.180" endtime="20230416 21:04:16.181"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.179" endtime="20230416 21:04:16.181"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão2', 'email': 'joao2@semfeijao.com', 'password': 'feijao', 'administrador': 'true', '_id': 'lEWE3E7OMfwiN9YQ'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.181" level="INFO">${nome} = João sem pé de Feijão2</msg>
+<status status="PASS" starttime="20230416 21:04:16.181" endtime="20230416 21:04:16.181"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.182" level="INFO">${_id} = lEWE3E7OMfwiN9YQ</msg>
+<status status="PASS" starttime="20230416 21:04:16.182" endtime="20230416 21:04:16.182"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.182" endtime="20230416 21:04:16.182"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.182" endtime="20230416 21:04:16.182"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.182" endtime="20230416 21:04:16.182"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.182" endtime="20230416 21:04:16.182"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.181" endtime="20230416 21:04:16.182"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão3', 'email': 'joaos02@feijao.com', 'password': 'feijao', 'administrador': 'false', '_id': 'qjlIPQOY4SkluD4o'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.183" level="INFO">${nome} = João sem pé de Feijão3</msg>
+<status status="PASS" starttime="20230416 21:04:16.183" endtime="20230416 21:04:16.183"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.184" level="INFO">${_id} = qjlIPQOY4SkluD4o</msg>
+<status status="PASS" starttime="20230416 21:04:16.183" endtime="20230416 21:04:16.184"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.184" endtime="20230416 21:04:16.184"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.184" endtime="20230416 21:04:16.184"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.184" endtime="20230416 21:04:16.184"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.184" endtime="20230416 21:04:16.184"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.183" endtime="20230416 21:04:16.184"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'Rahsaan.Stroman69@gmail.com', 'password': 'qU_mEWITP8Nr3PP', 'administrador': 'false', '_id': 's29acG61sNbJLeAE'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.185" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.185" endtime="20230416 21:04:16.185"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.186" level="INFO">${_id} = s29acG61sNbJLeAE</msg>
+<status status="PASS" starttime="20230416 21:04:16.185" endtime="20230416 21:04:16.186"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.186" endtime="20230416 21:04:16.186"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.186" endtime="20230416 21:04:16.186"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.186" endtime="20230416 21:04:16.186"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.186" endtime="20230416 21:04:16.186"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.185" endtime="20230416 21:04:16.186"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão', 'email': 'Gianni_Friesen@yahoo.com', 'password': '6FjxeiEkI8Qwpda', 'administrador': 'false', '_id': 'tN5u4MDjEAcPpcBs'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.187" level="INFO">${nome} = João sem pé de Feijão</msg>
+<status status="PASS" starttime="20230416 21:04:16.186" endtime="20230416 21:04:16.187"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.188" level="INFO">${_id} = tN5u4MDjEAcPpcBs</msg>
+<status status="PASS" starttime="20230416 21:04:16.187" endtime="20230416 21:04:16.188"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.188" endtime="20230416 21:04:16.188"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.188" endtime="20230416 21:04:16.188"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.188" endtime="20230416 21:04:16.188"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.188" endtime="20230416 21:04:16.188"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.186" endtime="20230416 21:04:16.188"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão4', 'email': 'Newell_Koss15@hotmail.com', 'password': 'w35UZ5qQEbAfaNK', 'administrador': 'true', '_id': 'tT3puMSJkRqYpEMH'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${nome} = João sem pé de Feijão4</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${_id} = tT3puMSJkRqYpEMH</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.188" endtime="20230416 21:04:16.189"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'João sem pé de Feijão4', 'email': 'Baron.Weissnat@yahoo.com', 'password': '3Z79aW7jhPuYt_0', 'administrador': 'true', '_id': 'tXkZ1AYhe562wk3Q'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${nome} = João sem pé de Feijão4</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${_id} = tXkZ1AYhe562wk3Q</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'Alberto Roberto', 'email': 'alberto@test1.com.br', 'password': 'teste', 'administrador': 'true', '_id': 'udfs6ht39Y0G1KPT'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${nome} = Alberto Roberto</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${_id} = udfs6ht39Y0G1KPT</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">Usuario encontrado com ID: udfs6ht39Y0G1KPT</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${id} = udfs6ht39Y0G1KPT</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</iter>
+<iter>
+<var name="${usuario}">{'nome': 'Roberto Silva', 'email': 'Robertos@test1.com.br', 'password': 'teste', 'administrador': 'false', '_id': 'vk6sFHZRSUIdHIB3'}</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${nome}</var>
+<arg>${usuario['nome']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${nome} = Roberto Silva</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${_id}</var>
+<arg>${usuario['_id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${_id} = vk6sFHZRSUIdHIB3</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<if>
+<branch type="IF" condition="'${nome}' == 'Alberto Roberto'">
+<kw name="Log" library="BuiltIn">
+<arg>Usuario encontrado com ID: ${_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${id}</var>
+<arg>${_id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<status status="NOT RUN" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</branch>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</if>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</iter>
+<status status="PASS" starttime="20230416 21:04:16.122" endtime="20230416 21:04:16.189"/>
+</for>
+<kw name="Set Variable" library="BuiltIn">
+<var>${url}</var>
+<arg>/usuarios/${id}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${url} = /usuarios/vk6sFHZRSUIdHIB3</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Alterar os dados do usuário com PUT</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${header}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20230416 21:04:16.189" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.189"/>
+</kw>
+<kw name="PUT On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>serverest</arg>
+<arg>url=${url}</arg>
+<arg>expected_status=200</arg>
+<arg>headers=${header}</arg>
+<arg>data={"nome": "Roberto Silva", "email": "Robertos@test1.com.br", "password": "teste", "administrador": "false"}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<msg timestamp="20230416 21:04:16.346" level="INFO">PUT Request : url=https://serverest.dev/usuarios/vk6sFHZRSUIdHIB3 
+ path_url=/usuarios/vk6sFHZRSUIdHIB3 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '106'} 
+ body={"nome": "Roberto Silva", "email": "Robertos@test1.com.br", "password": "teste", "administrador": "false"} 
+ </msg>
+<msg timestamp="20230416 21:04:16.346" level="INFO">PUT Response : url=https://serverest.dev/usuarios/vk6sFHZRSUIdHIB3 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'x-moesif-transaction-id': '8ae90e35-2f30-4256-b9c8-b280e77a856a', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '62d6ca53a16a9be1e21656e01aaa8565', 'Date': 'Mon, 17 Apr 2023 00:04:04 GMT', 'Server': 'Google Frontend', 'Content-Length': '50'} 
+ body={
+    "message": "Registro alterado com sucesso"
+} 
+ </msg>
+<msg timestamp="20230416 21:04:16.346" level="INFO">C:\Users\richa\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230416 21:04:16.361" level="INFO">${RESPONSE} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20230416 21:04:16.189" endtime="20230416 21:04:16.361"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${msg}</var>
+<arg>${RESPONSE.json()['message']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230416 21:04:16.361" level="INFO">${msg} = Registro alterado com sucesso</msg>
+<status status="PASS" starttime="20230416 21:04:16.361" endtime="20230416 21:04:16.361"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${msg}</arg>
+<arg>Registro alterado com sucesso</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20230416 21:04:16.361" endtime="20230416 21:04:16.377"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>Deletar usuario</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20230416 21:04:16.377" endtime="20230416 21:04:16.377"/>
+</kw>
+<kw name="DELETE On Session" library="RequestsLibrary">
+<var>${RESPONSE}</var>
+<arg>serverest</arg>
+<arg>url=${url}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20230416 21:04:16.533" level="INFO">DELETE Request : url=https://serverest.dev/usuarios/vk6sFHZRSUIdHIB3 
+ path_url=/usuarios/vk6sFHZRSUIdHIB3 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20230416 21:04:16.533" level="INFO">DELETE Response : url=https://serverest.dev/usuarios/vk6sFHZRSUIdHIB3 
+ status=400, reason=Bad Request 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'x-moesif-transaction-id': '6ac1c279-ba9b-4c4d-9ed9-c92c3c9aabf6', 'content-type': 'application/json; charset=utf-8', 'X-Cloud-Trace-Context': '3ad83b8c33c3d0c4c9f48fb65b0990a4', 'Date': 'Mon, 17 Apr 2023 00:04:04 GMT', 'Server': 'Google Frontend', 'Content-Length': '117'} 
+ body={
+    "message": "Não é permitido excluir usuário com carrinho cadastrado",
+    "idCarrinho": "TEpgpsXQloB40SSd"
+} 
+ </msg>
+<msg timestamp="20230416 21:04:16.533" level="INFO">C:\Users\richa\AppData\Local\Programs\Python\Python311\Lib\site-packages\urllib3\connectionpool.py:1045: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/1.26.x/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20230416 21:04:16.533" level="FAIL">Url: https://serverest.dev/usuarios/vk6sFHZRSUIdHIB3 Expected status: 400 != 200</msg>
+<status status="FAIL" starttime="20230416 21:04:16.377" endtime="20230416 21:04:16.546"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${RESPONSE}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20230416 21:04:16.546" endtime="20230416 21:04:16.546"/>
+</kw>
+<status status="FAIL" starttime="20230416 21:04:15.475" endtime="20230416 21:04:16.546">Url: https://serverest.dev/usuarios/vk6sFHZRSUIdHIB3 Expected status: 400 != 200</status>
+</test>
+<status status="FAIL" starttime="20230416 21:04:14.918" endtime="20230416 21:04:16.562"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="1" skip="0" id="s1" name="Post Serverest">Post Serverest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
